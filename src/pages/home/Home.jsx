@@ -6,7 +6,6 @@ import { Header } from '../../components/header/Header'
 import MailList from '../../components/maillist/MailList'
 import { Navbar } from '../../components/navbar/Navbar'
 import PropertyList from '../../components/propertyList/PropertyList'
-// import { Header } from '../../components/header/Header'
 
 import './home.css'
 
