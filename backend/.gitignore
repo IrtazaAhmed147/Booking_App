@@ -1,0 +1,4 @@
+# Node.js files and folders to ignore
+node_modules/
+.env
+
