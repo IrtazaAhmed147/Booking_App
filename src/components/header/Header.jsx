@@ -122,7 +122,7 @@ export const Header = ({ type }) => {
                                     <span className="optionText">Room</span>
                                     <div className="optionCounter">
 
-                                        <button disabled={options.room <= 0} className="optionCounterButton" onClick={() => handleOption("room", "d")}>-</button>
+                                        <button disabled={options.room <= 1} className="optionCounterButton" onClick={() => handleOption("room", "d")}>-</button>
                                         <span className="optionCounterNumber">{options.room}</span>
                                         <button className="optionCounterButton" onClick={() => handleOption("room", "i")}>+</button>
                                     </div>
