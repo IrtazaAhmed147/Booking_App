@@ -17,6 +17,10 @@
 .logo{
   font-weight: 500;
 }
+.logo a {
+  color: white;
+  text-decoration: none;
+}
 
 .navButton{
   margin-left: 20px;
