@@ -49,6 +49,9 @@ export const getRooms = async (req, res, next) => {
 }
 export const deleteRoom = async (req, res, next) => {
        const hotelId = req.params.hotelid
+       console.log(req.params);
+       console.log(req.body);
+       
     try {
         await Room.findByIdAndDelete(req.params.id)
          try {

@@ -14,7 +14,7 @@ export const Navbar = () => {
           </Link>
         </span>
       {user ? user.username :  ( <div className="navItems">
-         <Link to={"/login"}>
+         <Link to={"/register"}>
           <button className="navButton">Register</button>
          </Link>
          <Link to={"/login"}>

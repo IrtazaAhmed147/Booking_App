@@ -3,7 +3,7 @@ import "./featuredProperties.css";
 
 const FeaturedProperties = () => {
 
-  const { data, error, loading } = useFetch(`${import.meta.env.VITE_API_URL}/api/hotels?featured=true&min=10&max=300`)
+  const { data, error, loading } = useFetch(`${import.meta.env.VITE_API_URL}/api/hotels?featured=true&min=10&max=1500`)
   console.log(data);
   
   return (
