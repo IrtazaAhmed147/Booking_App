@@ -9,6 +9,9 @@ import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
+import { hotelColumns, roomColumns, userColumns } from "./datatablesource";
+import NewHotel from "./pages/newHotel/NewHotel.jsx";
+import NewRoom from "./pages/newRoom/NewRoom.jsx";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -33,10 +36,12 @@ function App() {
                 <Home />
               </ProtectedRoute>} />
             <Route path="users">
+
               <Route index element={
                 <ProtectedRoute>
-                  <List />
+                  <List columns={userColumns}/>
                 </ProtectedRoute>} />
+
               <Route path=":userId" element={
                 <ProtectedRoute>
                   <Single />
@@ -49,10 +54,10 @@ function App() {
                   </ProtectedRoute>}
               />
             </Route>
-            <Route path="products">
+            <Route path="hotels">
               <Route index element={
                 <ProtectedRoute>
-                  <List />
+                  <List columns={hotelColumns}/>
                 </ProtectedRoute>} />
               <Route path=":productId" element={
                 <ProtectedRoute>
@@ -62,10 +67,29 @@ function App() {
                 path="new"
                 element={
                   <ProtectedRoute>
-                    <New inputs={productInputs} title="Add New Product" />
+                    <NewHotel />
                   </ProtectedRoute>}
               />
             </Route>
+
+ <Route path="room">
+              <Route index element={
+                <ProtectedRoute>
+                  <List columns={roomColumns}/>
+                </ProtectedRoute>} />
+              <Route path=":productId" element={
+                <ProtectedRoute>
+                  <Single />
+                </ProtectedRoute>} />
+              <Route
+                path="new"
+                element={
+                  <ProtectedRoute>
+                    <NewRoom />
+                  </ProtectedRoute>}
+              />
+            </Route>
+
           </Route>
         </Routes>
       </BrowserRouter>
