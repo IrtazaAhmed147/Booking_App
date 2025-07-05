@@ -3,7 +3,7 @@ import "./featured.css";
 
 const Featured = () => {
 
-  const { data, error, loading} = useFetch("/api/hotels/countByCity?cities=berlin,madrid,london")
+  const { data, error, loading} = useFetch(`${import.meta.env.VITE_API_URL}/api/hotels/countByCity?cities=berlin,madrid,london`)
   
   
   return (

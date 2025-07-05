@@ -31,7 +31,7 @@ const Hotel = () => {
   // const {id} = useParams()
   // console.log(id);
   
-    const { data, error, loading} = useFetch(`/api/hotels/find/${id}`)
+    const { data, error, loading} = useFetch(`${import.meta.env.VITE_API_URL}/api/hotels/find/${id}`)
 
      const {user} = useContext(AuthContext)
      const {dates, options} = useContext(SearchContext)

@@ -3,12 +3,13 @@ import "./featuredProperties.css";
 
 const FeaturedProperties = () => {
 
-  const { data, error, loading } = useFetch("/api/hotels?featured=true&min=10&max=300")
-
+  const { data, error, loading } = useFetch(`${import.meta.env.VITE_API_URL}/api/hotels?featured=true&min=10&max=300`)
+  console.log(data);
+  
   return (
     <div className="fp">
       {loading ? "loading" : <>
-        {data.map((item) => (
+        {data && data?.map((item) => (
 
           <div className="fpItem" key={item._id}>
             <img

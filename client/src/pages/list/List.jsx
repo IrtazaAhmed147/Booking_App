@@ -18,8 +18,8 @@ export const List = () => {
   const [min, setMin] = useState(false)
   const [max, setMax] = useState(false)
   
-
-   const { data, error, loading, reFetch } = useFetch(`/api/hotels?city=${destination}&min=${min || 0}&max=${max || 999}`)
+const cityParam = destination ? `city=${destination}&` : "";
+   const { data, error, loading, reFetch } = useFetch(`${import.meta.env.VITE_API_URL}/api/hotels?${cityParam}min=${min || 0}&max=${max || 9999}`)
   console.log(data);
   
   const handleClick = ()=> {

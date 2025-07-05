@@ -5,17 +5,14 @@ const useFetch = (url) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  console.log(data);
   
   useEffect(() => {
-    console.log("dfgdfg");
     
     const fetchData = async () => {
       setLoading(true);
       try {
         const res = await axios.get(url);
         setData(res.data);
-        console.log(data);
         
       } catch (err) {
         setError(err);
