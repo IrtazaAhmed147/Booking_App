@@ -37,32 +37,30 @@ mongoose.connection.on("connected", ()=> {
 
 // ✅ CORS FIX
 const allowedOrigins = [
-  "http://localhost:3000"
-//   "https://your-frontend.vercel.app" // <- replace with actual deployed domain
+  "http://localhost:3000",
+  "https://bookingappclientside.vercel.app"
 ];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true
-}));
+// ✅ Unified CORS + Preflight Middleware
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  }
 
-// ✅ Preflight handler
-app.options("*", cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true
-}));
+  // ✅ Handle preflight (OPTIONS) requests
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
+
+
+
 
 // ✅ Manual header override (Railway sometimes strips headers)
 app.use((req, res, next) => {
