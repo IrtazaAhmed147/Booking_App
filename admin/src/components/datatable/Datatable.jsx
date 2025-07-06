@@ -10,7 +10,9 @@ const Datatable = ({columns}) => {
   const [list, setList] = useState([]);
   const location = useLocation()
   const path = location.pathname.split("/")[1]
-  const {data, loading, error} = useFetch(`/api/${path}`)
+  const {data, loading, error} = useFetch(`${process.env.REACT_APP_API_URL}/api/${path}`, {
+        withCredentials: true
+      })
 
   useEffect(()=> {
     setList(data)
