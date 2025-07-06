@@ -6,19 +6,19 @@ import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 
-const Datatable = ({columns}) => {
+const Datatable = ({ columns }) => {
   const [list, setList] = useState([]);
   const location = useLocation()
   const path = location.pathname.split("/")[1]
-  const {data, loading, error} = useFetch(`${process.env.REACT_APP_API_URL}/api/${path}`, {
-        withCredentials: true
-      })
+  const { data, loading, error } = useFetch(`/api/${path}`, {
+    withCredentials: true
+  })
 
-  useEffect(()=> {
+  useEffect(() => {
     setList(data)
   }, [data])
 
-  const handleDelete = async(id) => {
+  const handleDelete = async (id) => {
     try {
       await axios.delete(`/api/${path}/${id}`)
       setList(list.filter((item) => item._id !== id));

@@ -24,7 +24,7 @@ function Login() {
     e.preventDefault()
     dispatch({ type: "LOGIN_START" })
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`, ceredentials, {
+      const res = await axios.post(`/api/auth/login`, ceredentials, {
         withCredentials: true
       })
       if (res.data.isAdmin) {
