@@ -9,38 +9,40 @@ import { AuthContext } from '../../context/AuthContext'
 
 function Login() {
 
-    const [ceredentials, setCeredentials] = useState({
-        username: undefined,
-        password: undefined
-    })
+  const [ceredentials, setCeredentials] = useState({
+    username: undefined,
+    password: undefined
+  })
 
-    const {user, loading, error , dispatch } = useContext(AuthContext)
-    const navigate = useNavigate()
+  const { user, loading, error, dispatch } = useContext(AuthContext)
+  const navigate = useNavigate()
 
-    const handleChange = (e)=> {
-        setCeredentials(prev => ({...prev, [e.target.id]: e.target.value}))
+  const handleChange = (e) => {
+    setCeredentials(prev => ({ ...prev, [e.target.id]: e.target.value }))
+  }
+  const handleClick = async (e) => {
+    e.preventDefault()
+    dispatch({ type: "LOGIN_START" })
+    try {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`, ceredentials, {
+        withCredentials: true
+      })
+      if (res.data.isAdmin) {
+        dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details })
+        navigate("/")
+
+      } else {
+
+        dispatch({ type: "LOGIN_FAILURE", payload: { message: "You are not allowed!" } })
+      }
+
+    } catch (error) {
+      dispatch({ type: "LOGIN_FAILURE", payload: error.response.data })
+
+
     }
-    const handleClick = async(e)=> {
-        e.preventDefault()
-        dispatch({type: "LOGIN_START"})
-        try {
-            const res = await axios.post('/api/auth/login', ceredentials)
-            if(res.data.isAdmin) {
-              dispatch({type: "LOGIN_SUCCESS", payload: res.data.details})
-              navigate("/")
+  }
 
-            } else {
-
-              dispatch({type: "LOGIN_FAILURE", payload: {message: "You are not allowed!"}})
-            }
-            
-          } catch (error) {
-          dispatch({type: "LOGIN_FAILURE", payload: error.response.data})
-            
-            
-        }
-    }
-    
 
   return (
     <div className="login">

@@ -32,9 +32,55 @@ mongoose.connection.on("connected", ()=> {
 })
 
 // middleware
-app.use(cors())
+
+
+
+// ✅ CORS FIX
+const allowedOrigins = [
+  "http://localhost:3000"
+//   "https://your-frontend.vercel.app" // <- replace with actual deployed domain
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
+}));
+
+// ✅ Preflight handler
+app.options("*", cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
+}));
+
+// ✅ Manual header override (Railway sometimes strips headers)
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  }
+  next();
+});
+
+
+
 app.use(cookieParser())
 app.use(express.json())
+
 
 app.use("/api/auth", authRoute)
 app.use("/api/users", usersRoute)
